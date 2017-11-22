@@ -16,5 +16,9 @@ export default {
     currentUserUID: null,
     initialized: false
   },
+  chatX: {
+    isDataLoaded: false,
+    msgList: []
+  },
   ajaxCallsInProgress: 0
 };
