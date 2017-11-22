@@ -1,9 +1,43 @@
-Firebase 3.0 Starter using React Redux
+ChatX
 =====================
 
-This is a Firebase 3.0 start using React and Redux.
+This project is based on ([this boilerplate](https://github.com/gaearon/react-hot-loader/pull/240)), a Firebase 3.0 Starter using React Redux.
 
-It uses the latest version of libraries, including the brand new React Hot Loader ([still beta](https://github.com/gaearon/react-hot-loader/pull/240))
+A chat has been added on a new ChatX page.
+
+
+
+## ChatX implementation
+
+- One chat room where every logged in user can chat
+  - User can read the last 10 messages of the room when entering
+  - User can read new messages from other users
+  - User can write and send new messages
+
+## How to use it
+
+Give it a try!
+  - Sign up or sign in and go to ChatX
+  - You'll see the last 10 messages as you enter the chat
+  - You'll see the new messages other users post
+  - You can also write and send a new message.
+
+## Installation
+
+Requires Node.js
+
+```
+git clone git@github.com:sbourdon13/react-hot-redux-firebase-starter.git
+cd react-hot-redux-firebase-starter
+npm install
+npm start -s
+```
+
+
+## Development Tasks
+
+- `npm start` run the web app with lint and tests in watch mode
+- `npm run lint` linting javascript code usig eslint
 
 ## Stack
 
@@ -32,35 +66,4 @@ It uses the latest version of libraries, including the brand new React Hot Loade
   - [X] Enzyme `2.3.0`
 
 
-## Features
 
-- Firebase:
-  - Auth
-    - [X] Authentication setup (Registration/Login) 
-    - [X] state.user sync with Firebase Auth
-    - [X] Protected routes (needs to be logged in)    
-    - [X] Store users on `'/users/<user.uid>'`
-    - [X] Admin flag on user (`'/isAdmin/<user.uid>' :: bool`)
-    - [X] Admin Protected routes (needs to be logged in)
-  - Database
-    - [X] Set example
-    - [X] Query example 
-
-## Usage
-
-```
-git clone git@github.com:douglascorrea/react-hot-redux-firebase-starter.git
-cd react-hot-redux-firebase-starter
-npm install
-npm start -s
-```
-
-## Development Tasks
-
-- `npm start` run the web app with lint and tests in watch mode
-- `npm run lint` linting javascript code usig eslint
-- `npm run test` test using mocha and enzyme
-
-## Roadmap
-
-Check our [roadmap issues](https://github.com/douglascorrea/react-hot-redux-firebase-starter/issues?q=is%3Aissue+is%3Aopen+label%3Aroadmap)
