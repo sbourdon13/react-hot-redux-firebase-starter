@@ -22,7 +22,7 @@ const LoginForm = ({user, onSave, onChange, saving}) => {
       <input
         type="submit"
         disabled={saving}
-        value={saving ? 'Logining in...' : 'Login'}
+        value={saving ? 'Logging in...' : 'Login'}
         className="btn btn-primary"
         onClick={onSave}/>
     </form>
