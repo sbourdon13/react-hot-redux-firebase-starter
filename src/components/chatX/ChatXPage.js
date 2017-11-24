@@ -45,9 +45,8 @@ export class ChatXPage extends React.Component {
             });
     }
 
-    updateInputState(event) {
-        let newMsg = event.target.value;
-        return this.setState({ newMessage: newMsg });
+    updateInputState(messageContent) {
+        return this.setState({ newMessage: messageContent });
     }
 
     sendMessage(event) {
@@ -79,7 +78,6 @@ export class ChatXPage extends React.Component {
                 <ChatXInput
                     onChange={this.updateInputState}
                     onSave={this.sendMessage}
-                    content={this.state.newMessage}
                 />
             </div>
         );

@@ -1,15 +1,19 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
 
-const ChatXInput = ({ content, onChange, onSave }) => {
+const ChatXInput = ({ onChange, onSave }) => {
+
+    const getValue = (event) => {
+        onChange(event.target.value);
+    };
+
     return (
         <div className="chat-x-footer row">
             <div className="chat-x-footer-left">
                 <TextInput
                     name="msg"
                     label=""
-                    value={content}
-                    onChange={onChange}
+                    onChange={getValue}
                     placeholder="Enter message..."
                 />
             </div>
@@ -26,7 +30,6 @@ const ChatXInput = ({ content, onChange, onSave }) => {
 };
 
 ChatXInput.propTypes = {
-    content: React.PropTypes.string.isRequired,
     onChange: React.PropTypes.func.isRequired,
     onSave: React.PropTypes.func.isRequired
 };
