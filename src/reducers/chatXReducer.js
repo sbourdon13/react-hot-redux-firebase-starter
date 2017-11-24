@@ -6,10 +6,7 @@ export default function chatXReducer(state = initialState.chatX, action) {
         case types.CHATX_INITIAL_MSG_LIST_LOADED_SUCCESS:
             return Object.assign({}, state, {
                 isDataLoaded: true,
-                msgList: action.msgList
-            });
-        case types.CHATX_FIRST_MSG_KEY_FETCHED:
-            return Object.assign({}, state, {
+                msgList: action.msgList,
                 firstKey: action.firstKey
             });
         case types.CHATX_NEW_MSG_LIST_LOADED_SUCCESS:

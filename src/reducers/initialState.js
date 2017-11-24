@@ -18,7 +18,8 @@ export default {
   },
   chatX: {
     isDataLoaded: false,
-    msgList: []
+    msgList: [],
+    firstKey: ""
   },
   ajaxCallsInProgress: 0
 };

@@ -37,37 +37,24 @@ function extractMsgListProperties(firebaseMsgList, user) {
     return messageList;
 }
 
-function getFirstMessageKey(firebaseMsgList) {
-    if (firebaseMsgList) {
-        return Object.keys(firebaseMsgList)[0];
-    }
-}
 
 /////////////////////////////////////
 // Action types
 /////////////////////////////////////
 
-export function messageSentSuccess() {
-    return {
-        type: types.CHATX_MSG_SENT_SUCCESS
-    };
-}
 
-export function chatXinitialMsgListLoadedSuccess(msgList) {
+export function chatXinitialMsgListLoadedSuccess(msgList, firstKey) {
     return {
-        type: types.CHATX_INITIAL_MSG_LIST_LOADED_SUCCESS, msgList
-    };
-}
-
-export function chatXFirstMsgKeyFetched(firstKey) {
-    return {
-        type: types.CHATX_FIRST_MSG_KEY_FETCHED, firstKey
+        type: types.CHATX_INITIAL_MSG_LIST_LOADED_SUCCESS,
+        msgList,
+        firstKey
     };
 }
 
 export function chatXNewMsgListLoadedSuccess(msgList) {
     return {
-        type: types.CHATX_NEW_MSG_LIST_LOADED_SUCCESS, msgList
+        type: types.CHATX_NEW_MSG_LIST_LOADED_SUCCESS,
+        msgList
     };
 }
 
@@ -86,8 +73,12 @@ export function getInitial10Messages() {
         return firebaseApi.getLast10Children('/chatX/')
             .then(
             (messageList) => {
-                dispatch(chatXFirstMsgKeyFetched(getFirstMessageKey(messageList.val())));
-                return dispatch(chatXinitialMsgListLoadedSuccess(extractMsgListProperties(messageList.val(), getState().user.email)));
+                let key = "";
+                if (messageList.val()) {
+                    key = Object.keys(messageList.val())[0];
+                }
+                let msgList = extractMsgListProperties(messageList.val(), getState().user.email);
+                dispatch(chatXinitialMsgListLoadedSuccess(msgList, key));
             })
             .catch(
             error => {
@@ -99,11 +90,11 @@ export function getInitial10Messages() {
     };
 }
 
+
 export function messageSent(message) {
     let messageKey = firebaseApi.createKey('/chatX/');
     return (dispatch, getState) => {
-        let msg = extractMessageProperties(message, getState().user.email);
-        return firebaseApi.databaseSet('/chatX/' + messageKey, msg)
+        return firebaseApi.databaseSet('/chatX/' + messageKey, message)
             .catch(
             error => {
                 dispatch(ajaxCallError(error));
@@ -135,14 +126,15 @@ export function getMessageListStartAtKey(key) {
 
 export function getNewMessages(callback) {
     return (dispatch, getState) => {
-        let msg = {};
-        return firebaseApi.getRef('/chatX/')
-            .on('child_added', (snap) => {
-                if (getState().chatX.isDataLoaded) {
-                    msg = extractMessageProperties(snap.val(), getState().user.email);
-                    callback(msg);
+        return firebaseApi.getChildAdded('/chatX/', (snap) => {
+            if (getState().chatX.isDataLoaded) {
+                if (getState().chatX.firstKey) {
+                    dispatch(getMessageListStartAtKey(getState().chatX.firstKey));
+                } else {
+                    dispatch(getInitial10Messages());
                 }
-            });
+            }
+        });
     };
 }
 

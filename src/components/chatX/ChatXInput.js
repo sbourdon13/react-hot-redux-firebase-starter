@@ -1,10 +1,15 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
 
-const ChatXInput = ({ onChange, onSave }) => {
+const ChatXInput = ({ content, onChange, onSave }) => {
 
     const getValue = (event) => {
         onChange(event.target.value);
+    };
+
+    const onClick = (event) => {
+        event.preventDefault();
+        onSave();
     };
 
     return (
@@ -13,6 +18,7 @@ const ChatXInput = ({ onChange, onSave }) => {
                 <TextInput
                     name="msg"
                     label=""
+                    value={content}
                     onChange={getValue}
                     placeholder="Enter message..."
                 />
@@ -22,7 +28,7 @@ const ChatXInput = ({ onChange, onSave }) => {
                     type="submit"
                     value="Send"
                     className="btn btn-primary btn-block"
-                    onClick={onSave} >
+                    onClick={onClick} >
                 </input>
             </div>
         </div>
@@ -30,6 +36,7 @@ const ChatXInput = ({ onChange, onSave }) => {
 };
 
 ChatXInput.propTypes = {
+    content: React.PropTypes.string.isRequired,
     onChange: React.PropTypes.func.isRequired,
     onSave: React.PropTypes.func.isRequired
 };

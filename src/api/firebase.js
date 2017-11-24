@@ -70,10 +70,11 @@ class FirebaseApi {
 
   }
 
-  static getRef(path) {
+  static getChildAdded(path, func) {
     return firebase
       .database()
-      .ref(path);
+      .ref(path)
+      .on('child_added', func);
   }
 
   static createKey(path) {
